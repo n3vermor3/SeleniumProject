@@ -8,7 +8,7 @@ import math
 
 
 class BasePage():
-    def __init__(self, browser, url, timeout=4):
+    def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
         self.browser.implicitly_wait(timeout)
@@ -16,6 +16,11 @@ class BasePage():
 
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+
+    def go_to_basket_page(self):
+        link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
         link.click()
 
 
@@ -48,6 +53,10 @@ class BasePage():
 
     def open(self):
         self.browser.get(self.url)
+
+
+    def should_be_basket_link(self):
+        assert self.is_element_present(*BasePageLocators.BASKET_LINK), "Basket link is not presented"
 
 
     def should_be_login_link(self):
